@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Currency converter</string>
+    <string name="textView_input_money">Input your cash in dollars</string>
+    <string name="button_convert_money">Convert to Euro</string>
+</resources>

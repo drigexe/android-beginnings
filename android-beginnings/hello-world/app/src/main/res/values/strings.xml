@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Hello world app</string>
+    <string name="button_change_image">Change image</string>
+</resources>

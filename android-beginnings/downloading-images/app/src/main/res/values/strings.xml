@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Downloading images</string>
+    <string name="button_downloadImage">Download Image</string>
+</resources>

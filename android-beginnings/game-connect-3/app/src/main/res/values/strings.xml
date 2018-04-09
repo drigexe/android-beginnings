@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Android vs IOS</string>
+
+    <string name="playAgainButton">Play Again</string>
+    <string name="playAgainButton_start_over">Start over</string>
+
+
+    <string name="winnerTextView_android">Android wins!</string>
+    <string name="winnerTextView_apple">IOS wins!</string>
+    <string name="winnerTextView_draw">It is a draw!</string>
+</resources>
