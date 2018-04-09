@@ -11,6 +11,7 @@ public class MainActivity extends AppCompatActivity {
 
     MediaPlayer mediaPlayer;
 
+    //some comment to test
     public void playSound(View view) {
 
         String pressedButton = view.getTag().toString();
