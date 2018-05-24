@@ -10,6 +10,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     TextView textView;
+    char plus = '+';
+    char minus = '-';
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,14 +22,13 @@ public class MainActivity extends AppCompatActivity {
         //String myFinalResult = calculateFormula("2d10+8-1d4+100d8-7");
         //textView.setText(myFinalResult);
 
-        //ArrayList<String> asd = new ArrayList<>();   <- to see if formulaSeparator is working
-        //asd = formulaSeparator("2d10+8-1d4+100d8-7");  <- to see if formulaSeparator is working
+        ArrayList<String> asd = new ArrayList<>();   // <- to see if anything is working
+        asd = formulaSeparator("2d10+8-1d4+100d8-7");  //<- to see if formulaSeparator is working
+        asd = formulaSignsKeeper("2d10+8-1d4+100d8-7");  //<- to see if formulaSignsKeeper is working
     }
 
     public ArrayList<String> formulaSeparator(String formula) {
         ArrayList<String> formulaStringParts = new ArrayList<>();
-        char plus = '+';
-        char minus = '-';
         int pos1 = 0;
         int pos2;
 
@@ -45,18 +46,24 @@ public class MainActivity extends AppCompatActivity {
         pos2 = formula.length();
         formulaStringParts.add(formula.substring(pos1, pos2));
 
-        //for (int e = 0; e < formulaStringParts.size(); e++ ) {
-        //   Log.i("MASSIV", formulaStringParts.get(e));
-        //}
+        System.out.println(formulaStringParts);
 
         return formulaStringParts;
     }
 
     public ArrayList<String> formulaSignsKeeper(String formula) {
+        ArrayList<String> formulaSigns = new ArrayList<>();
 
         // read all '+" and '-' signs into the separate array
 
-        ArrayList<String> formulaSigns = new ArrayList<>();
+        for (int i = 0; i < formula.length(); i++) {
+            if ((formula.charAt(i) == plus) || (formula.charAt(i) == minus)) {
+                formulaSigns.add(Character.toString(formula.charAt(i)));
+            }
+        }
+
+        System.out.println(formulaSigns);
+
         return formulaSigns;
     }
 
