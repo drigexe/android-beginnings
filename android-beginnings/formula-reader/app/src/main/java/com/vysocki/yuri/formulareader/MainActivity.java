@@ -29,6 +29,14 @@ public class MainActivity extends AppCompatActivity {
         return formulaStringParts;
     }
 
+    public ArrayList<String> formulaSignsKeeper(String formula) {
+
+        // read all '+" and '-' signs into the separate array
+
+        ArrayList<String> formulaSigns = new ArrayList<>();
+        return formulaSigns;
+    }
+
     public ArrayList<Integer> formulaPartsConverter(ArrayList<String> formulaStringParts) {
         ArrayList<Integer> formulaIntParts = new ArrayList<>();
 
@@ -39,11 +47,26 @@ public class MainActivity extends AppCompatActivity {
         return formulaIntParts;
     }
 
+    public int formulaPartsCombiner(ArrayList<Integer> formulaIntParts, ArrayList<String> formulaSigns) {
+
+        //calculate the final result value depends on '+' and '-' signs
+
+        int iResult = 1;
+        return iResult;
+    }
+
     public String calculateFormula(String formula) {
 
         // call all methods that perform actions with formula and return result to display
 
-        String result = "";
-        return result;
+        ArrayList<String> formulaStringParts = new ArrayList<>();
+        ArrayList<Integer> formulaIntParts = new ArrayList<>();
+        ArrayList<String> formulaSigns = new ArrayList<>();
+
+        formulaStringParts = formulaSeparator(formula);
+        formulaSigns = formulaSignsKeeper(formula);
+        formulaIntParts = formulaPartsConverter(formulaStringParts);
+        String sResult = Integer.toString(formulaPartsCombiner(formulaIntParts, formulaSigns));
+        return sResult;
     }
 }
