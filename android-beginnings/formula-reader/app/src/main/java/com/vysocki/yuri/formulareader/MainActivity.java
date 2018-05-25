@@ -1,17 +1,21 @@
 package com.vysocki.yuri.formulareader;
 
+import android.support.v4.util.SimpleArrayMap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
     TextView textView;
     char plus = '+';
     char minus = '-';
+    int startingPosition = 0;
+    int endPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,35 +34,48 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public int calculateDiceValues(String diceString, int dCharPosition) {
-        int finalDiceValue;
+        Random r = new Random();
+        int finalDiceValue = 0;
+        int beforeDValue;
+        int afterDValue;
+        int minValueToRandomize = 1;
+        int maxValueToRandomize;
+        startingPosition = 0;
+        endPosition = diceString.length();
 
         // read 'dice substrings' of the formula
         // separate values before 'd' symbol and after
         // convert separated values to integers and calculate them correctly
 
-        finalDiceValue = 5;
+        beforeDValue = Integer.parseInt(diceString.substring(startingPosition, dCharPosition));
+        afterDValue = Integer.parseInt(diceString.substring(dCharPosition+1, endPosition));
+        maxValueToRandomize = afterDValue;
+
+        for (int i = 1; i <= beforeDValue; i++) {
+            int rollResult;
+            rollResult = r.nextInt((maxValueToRandomize - minValueToRandomize) + 1) + minValueToRandomize;
+            finalDiceValue = finalDiceValue + rollResult;
+        }
 
         return finalDiceValue;
     }
 
     public ArrayList<String> formulaSeparator(String formula) {
         ArrayList<String> formulaStringParts = new ArrayList<>();
-        int pos1 = 0;
-        int pos2;
 
         //separate formula into the individual string parts
         //and put them into string array
 
         for (int i = 0; i < formula.length(); i++) {
             if ((formula.charAt(i) == plus) || (formula.charAt(i) == minus)) {
-                pos2 = i;
-                formulaStringParts.add(formula.substring(pos1, pos2));
-                pos1 = i+1;
+                endPosition = i;
+                formulaStringParts.add(formula.substring(startingPosition, endPosition));
+                startingPosition = i+1;
             }
         }
 
-        pos2 = formula.length();
-        formulaStringParts.add(formula.substring(pos1, pos2));
+        endPosition = formula.length();
+        formulaStringParts.add(formula.substring(startingPosition, endPosition));
 
         System.out.println(formulaStringParts);
 
