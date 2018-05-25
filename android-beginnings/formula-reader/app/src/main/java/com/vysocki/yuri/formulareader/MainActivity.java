@@ -70,8 +70,6 @@ public class MainActivity extends AppCompatActivity {
         endPosition = formula.length();
         formulaStringParts.add(formula.substring(startingPosition, endPosition));
 
-        System.out.println(formulaStringParts);
-
         return formulaStringParts;
     }
 
@@ -85,8 +83,6 @@ public class MainActivity extends AppCompatActivity {
                 formulaSigns.add(Character.toString(formula.charAt(i)));
             }
         }
-
-        System.out.println(formulaSigns);
 
         return formulaSigns;
     }
@@ -121,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
             isDice = false;
         }
 
-        System.out.println(formulaIntParts);
         return formulaIntParts;
     }
 
