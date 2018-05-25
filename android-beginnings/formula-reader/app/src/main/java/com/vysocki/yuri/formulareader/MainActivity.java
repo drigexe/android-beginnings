@@ -1,9 +1,7 @@
 package com.vysocki.yuri.formulareader;
 
-import android.support.v4.util.SimpleArrayMap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -23,14 +21,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         textView = findViewById(R.id.textView);
-        //String myFinalResult = calculateFormula("2d10+8-1d4+100d8-7");
-        //textView.setText(myFinalResult);
+        String finalResult = calculateFormula("2d10+8-1d4+100d8-7");
+        textView.setText(finalResult);
 
-        ArrayList<String> asd = new ArrayList<>();   // <- to see if anything is working
-        ArrayList<Integer> bsd = new ArrayList<>();  // <- to see if formulaPartsConverter is working
-        asd = formulaSignsKeeper("2d10+8-1d4+100d8-7");  //<- to see if formulaSignsKeeper is working
-        asd = formulaSeparator("2d10+8-1d4+100d8-7");  //<- to see if formulaSeparator is working
-        bsd = formulaPartsConverter(asd); // <- to see if formulaPartsConverter is working
     }
 
     public int calculateDiceValues(String diceString, int dCharPosition) {
@@ -44,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         endPosition = diceString.length();
 
         // read 'dice substrings' of the formula
-        // separate values before 'd' symbol and after
+        // separate values before and after 'd' symbol
         // convert separated values to integers and calculate them correctly
 
         beforeDValue = Integer.parseInt(diceString.substring(startingPosition, dCharPosition));
@@ -133,11 +126,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public int formulaPartsCombiner(ArrayList<Integer> formulaIntParts, ArrayList<String> formulaSigns) {
+        int finalIntResult = formulaIntParts.get(0);
 
         //calculate the final result value depends on '+' and '-' signs
 
-        int iResult = 1;
-        return iResult;
+        for (int i = 1; i <= formulaSigns.size(); i++) {
+            if (formulaSigns.get(i-1).charAt(0) == plus) {
+                finalIntResult = finalIntResult + formulaIntParts.get(i);
+            } else {
+                finalIntResult = finalIntResult - formulaIntParts.get(i);
+            }
+        }
+
+        return finalIntResult;
     }
 
     public String calculateFormula(String formula) {
@@ -151,11 +152,8 @@ public class MainActivity extends AppCompatActivity {
         formulaStringParts = formulaSeparator(formula);
         formulaSigns = formulaSignsKeeper(formula);
         formulaIntParts = formulaPartsConverter(formulaStringParts);
-        String sResult = Integer.toString(formulaPartsCombiner(formulaIntParts, formulaSigns));
-        return sResult;
+        String finalStringResult = Integer.toString(formulaPartsCombiner(formulaIntParts, formulaSigns));
+        return finalStringResult;
     }
 }
 
-// indexOf(String str, int fromIndex)
-// substring(int start, int end)
-// charAt(int index)
