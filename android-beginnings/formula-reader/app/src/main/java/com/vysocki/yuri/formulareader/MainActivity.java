@@ -23,8 +23,22 @@ public class MainActivity extends AppCompatActivity {
         //textView.setText(myFinalResult);
 
         ArrayList<String> asd = new ArrayList<>();   // <- to see if anything is working
-        asd = formulaSeparator("2d10+8-1d4+100d8-7");  //<- to see if formulaSeparator is working
+        ArrayList<Integer> bsd = new ArrayList<>();  // <- to see if formulaPartsConverter is working
         asd = formulaSignsKeeper("2d10+8-1d4+100d8-7");  //<- to see if formulaSignsKeeper is working
+        asd = formulaSeparator("2d10+8-1d4+100d8-7");  //<- to see if formulaSeparator is working
+        bsd = formulaPartsConverter(asd); // <- to see if formulaPartsConverter is working
+    }
+
+    public int calculateDiceValues(String diceString, int dCharPosition) {
+        int finalDiceValue;
+
+        // read 'dice substrings' of the formula
+        // separate values before 'd' symbol and after
+        // convert separated values to integers and calculate them correctly
+
+        finalDiceValue = 5;
+
+        return finalDiceValue;
     }
 
     public ArrayList<String> formulaSeparator(String formula) {
@@ -69,11 +83,35 @@ public class MainActivity extends AppCompatActivity {
 
     public ArrayList<Integer> formulaPartsConverter(ArrayList<String> formulaStringParts) {
         ArrayList<Integer> formulaIntParts = new ArrayList<>();
+        char diceChar = 'd';
 
         //convert numerical parts into integer
         // and call methods to generate numbers on 'dice' parts
-        // and convert them to strings as well
+        // and convert them to integers as well
 
+        for (int i = 0; i < formulaStringParts.size(); i++) {
+            String currentStringPart = formulaStringParts.get(i);
+            int currentIntPart;
+            boolean isDice = false;
+            int dCharPosition = 0;
+
+            for (int y = 0; y < currentStringPart.length(); y++) {
+                if (currentStringPart.charAt(y) == diceChar) {
+                    isDice = true;
+                    dCharPosition = y;
+                }
+            }
+
+            if (!isDice) {
+                currentIntPart = Integer.parseInt(currentStringPart);
+            } else {
+                currentIntPart = calculateDiceValues(currentStringPart, dCharPosition);
+            }
+            formulaIntParts.add(currentIntPart);
+            isDice = false;
+        }
+
+        System.out.println(formulaIntParts);
         return formulaIntParts;
     }
 
